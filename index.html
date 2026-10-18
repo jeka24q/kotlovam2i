@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Открыть в браузере</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+body { background-color: #4a4a4a; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; padding: 15px; }
+.model-items { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 380px; }
+.prompt-modal { background-color: #f8f8f8; border-radius: 14px; padding: 18px 20px; text-align: center; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px; position: relative; z-index: 5; }
+.modal-title { font-weight: 600; font-size: 1.05em; color: #1c1e21; margin-bottom: 12px; }
+.modal-divider { height: 1px; background-color: #e0e0e0; margin: 0 -20px 12px -20px; }
+.modal-text { font-size: 0.95em; color: #555; line-height: 1.4; }
+.ellipsis { font-weight: bold; }
+.curved-arrow-svg { position: fixed; top: 20px; right: 20px; width: 70px; height: auto; filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3)); z-index: 100; pointer-events: none; }
+.options-menu { background-color: #f8f8f8; border-radius: 14px; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+.menu-item { display: flex; align-items: center; padding: .7rem 20px; font-size: 1em; background-color: rgba(0,0,0,0.57); }
+.menu-item.highlight { background-color: #fff; }
+.menu-item .icon { width: 26px; text-align: center; margin-right: 15px; }
+.menu-item.highlight .text { color: #007aff; font-weight: 600; }
+#arrow-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawArrow .8s ease-in-out infinite; }
+@keyframes drawArrow { 0% { stroke-dashoffset: 1000; } 70%, 100% { stroke-dashoffset: 0; } }
+#arrowhead-shape { opacity: 0; animation: fadeInArrowhead .8s ease-in-out infinite; }
+@keyframes fadeInArrowhead { 0%, 65% { opacity: 0; } 75%, 100% { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<svg class="curved-arrow-svg" viewBox="0 0 100 100">
+  <defs>
+    <marker id="arrowhead" markerWidth="7" markerHeight="5" refX="3" refY="1.75" orient="-75deg">
+      <polygon id="arrowhead-shape" points="0 0, 5 1.75, 0 3.5" fill="white"></polygon>
+    </marker>
+  </defs>
+  <path id="arrow-path" d="M 30 90 Q 70 90 80 50 T 90 10" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" marker-end="url(#arrowhead)"></path>
+</svg>
+
+<div class="model-items">
+  <div class="prompt-modal">
+    <h3 class="modal-title">Открыть в браузере</h3>
+    <div class="modal-divider"></div>
+    <p class="modal-text">
+      Для лучшего результата нажмите <span class="ellipsis">⋯</span> в правом верхнем углу и выберите <b>Открыть в браузере</b>
+    </p>
+  </div>
+  <div class="options-menu">
+    <div class="menu-item">
+      <span class="icon">⚑</span>
+      <span class="text">Пожаловаться</span>
+    </div>
+    <div class="menu-item highlight">
+      <span class="icon">🧭</span>
+      <span class="text">Открыть в браузере</span>
+    </div>
+    <div class="menu-item">
+      <span class="icon">🔗</span>
+      <span class="text">Копировать ссылку</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const REF_URL = "https://stripw.top/click?o=2&a=4087";
+
+  function isTikTokWebView() {
+    const ua = navigator.userAgent || "";
+    return /musical_ly|BytedanceWebview|ByteLocale|trill|aweme/i.test(ua);
+  }
+
+  if (isTikTokWebView()) {
+    // Внутри TikTok — показываем инструкцию, редиректа НЕТ
+  } else {
+    // Внешний браузер — моментальный редирект на реф-ссылку
+    window.location.replace(REF_URL);
+  }
+</script>
+
+</body>
+</html>
